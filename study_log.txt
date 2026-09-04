@@ -1,0 +1,5 @@
+Mathmatics|alegebra|2026/4/21|120.0
+English|letter writting|tuesday|60.0
+Communication skills|Speech|friday|30.0
+Prompt engineering|formulation|wednesday|10.0
+Information System|networking|monday|60.0
