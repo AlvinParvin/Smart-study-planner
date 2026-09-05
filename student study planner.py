@@ -1,22 +1,13 @@
-"""
-Smart Study Planner
-A console-based Python program that helps a student log, review, and
-analyse study sessions across different subjects over the course of a
-semester.
-"""
-
 import os
-
 
 # Configuration
 
 LOG_FILE = "study_log.txt"
-# Delimiter used when saving/loading sessions to/from the text file.
-# A field that could never appear naturally in the free-text inputs.
+# Delimiter used when loading sessions to or from the text file.
 DELIMITER = "|"
 
 
-# (c) Classification helper - reused everywhere a session is displayed
+# (c) Classification helper which is reused everywhere a session is displayed.
 def classify_session(duration):
     """
     Classify a study session by its duration (in minutes).
@@ -33,7 +24,7 @@ def classify_session(duration):
         return "Long"
 
 
-# (g) Persistence: save / load sessions
+# (g) Persistence: save and load sessions.
 def save_sessions(sessions):
     """
     Save every logged session to LOG_FILE, one session per line.
@@ -216,7 +207,7 @@ def study_statistics(sessions):
     for subject, minutes in per_subject.items():
         print(f"  {subject:<15}: {minutes:.0f} min ({minutes / 60:.2f} hrs)")
 
-    # Weakest subject = least total study time
+    # Weakest subject = least total study time.
     weakest_subject = min(per_subject, key=per_subject.get)
     print(f"\nWeakest area (least total study time): {weakest_subject} "
           f"({per_subject[weakest_subject]:.0f} min).")
