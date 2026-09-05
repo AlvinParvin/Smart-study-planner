@@ -1,28 +1,22 @@
 """
 Smart Study Planner
-====================
 A console-based Python program that helps a student log, review, and
 analyse study sessions across different subjects over the course of a
-semester. Data persists across runs via a plain-text log file
-(study_log.txt).
-
-Author: <your name>
+semester.
 """
 
 import os
 
-# ---------------------------------------------------------------------------
+
 # Configuration
-# ---------------------------------------------------------------------------
+
 LOG_FILE = "study_log.txt"
 # Delimiter used when saving/loading sessions to/from the text file.
 # A field that could never appear naturally in the free-text inputs.
 DELIMITER = "|"
 
 
-# ---------------------------------------------------------------------------
 # (c) Classification helper - reused everywhere a session is displayed
-# ---------------------------------------------------------------------------
 def classify_session(duration):
     """
     Classify a study session by its duration (in minutes).
@@ -39,15 +33,12 @@ def classify_session(duration):
         return "Long"
 
 
-# ---------------------------------------------------------------------------
 # (g) Persistence: save / load sessions
-# ---------------------------------------------------------------------------
 def save_sessions(sessions):
     """
     Save every logged session to LOG_FILE, one session per line.
     Fields are separated by DELIMITER so they can be split back out
-    on load. This overwrites the file with the current in-memory list,
-    which is fine because it is only called once, on exit.
+    on load. This overwrites the file with the current in-memory list.
     """
     with open(LOG_FILE, "w", encoding="utf-8") as f:
         for session in sessions:
@@ -100,21 +91,19 @@ def load_sessions():
                     "duration": duration,
                 })
     except OSError as e:
-        # Covers permission errors, locked files, etc.
+        # Covers permission errors, locked files.
         print(f"Warning: could not read '{LOG_FILE}' ({e}). Starting with an empty log.")
         return []
 
     return sessions
 
 
-# ---------------------------------------------------------------------------
 # (b) Add a new session
-# ---------------------------------------------------------------------------
 def add_session(sessions):
     """
     Prompt the user for subject, topic, date/day label and duration
     (minutes), validate the duration, and append the new session
-    (as a dictionary) to the sessions list.
+    as a dictionary to the sessions list.
     """
     print("\n--- Add a Study Session ---")
     subject = input("Subject: ").strip()
@@ -145,9 +134,8 @@ def add_session(sessions):
     print(f"Session added: {subject} ({classify_session(duration)}, {duration:.0f} min).")
 
 
-# ---------------------------------------------------------------------------
+
 # (d) View all sessions
-# ---------------------------------------------------------------------------
 def view_sessions(sessions):
     """Display every logged session in a neatly formatted table."""
     print("\n--- All Study Sessions ---")
@@ -166,9 +154,7 @@ def view_sessions(sessions):
         print(f"{s['subject']:<15}{s['topic']:<20}{s['date']:<15}{duration_str:<12}{session_type:<8}")
 
 
-# ---------------------------------------------------------------------------
 # (e) Search sessions by subject
-# ---------------------------------------------------------------------------
 def search_by_subject(sessions, subject):
     """
     Display all sessions recorded for a given subject (case-insensitive
@@ -199,9 +185,8 @@ def search_by_subject(sessions, subject):
           f"({total_minutes / 60:.2f} hours).")
 
 
-# ---------------------------------------------------------------------------
+
 # (f) Study statistics
-# ---------------------------------------------------------------------------
 def study_statistics(sessions):
     """
     Compute and display:
@@ -243,9 +228,7 @@ def study_statistics(sessions):
           f"on {longest['date']}.")
 
 
-# ---------------------------------------------------------------------------
 # (a) Menu-driven interface
-# ---------------------------------------------------------------------------
 def display_menu():
     print("\n===== Smart Study Planner =====")
     print("1. Add a study session")
@@ -278,7 +261,6 @@ def main():
             print("Goodbye!")
             break
         else:
-            # Reject invalid choices without crashing.
             print("Invalid choice. Please enter a number from 1 to 5.")
 
 
