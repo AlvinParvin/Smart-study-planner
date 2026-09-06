@@ -7,7 +7,6 @@ LOG_FILE = "study_log.txt"
 DELIMITER = "|"
 
 
-# (c) Classification helper which is reused everywhere a session is displayed.
 def classify_session(duration):
     """
     Classify a study session by its duration (in minutes).
@@ -24,7 +23,6 @@ def classify_session(duration):
         return "Long"
 
 
-# (g) Persistence: save and load sessions.
 def save_sessions(sessions):
     """
     Save every logged session to LOG_FILE, one session per line.
@@ -52,7 +50,7 @@ def load_sessions():
     sessions = []
 
     if not os.path.exists(LOG_FILE):
-        # First run - nothing to load yet. This is expected, not an error.
+        #No log file yet
         return sessions
 
     try:
@@ -64,7 +62,6 @@ def load_sessions():
 
                 parts = line.split(DELIMITER)
                 if len(parts) != 4:
-                    # Skip malformed lines rather than crashing the program.
                     print(f"Warning: skipping malformed line {line_number} in {LOG_FILE}.")
                     continue
 
@@ -82,14 +79,13 @@ def load_sessions():
                     "duration": duration,
                 })
     except OSError as e:
-        # Covers permission errors, locked files.
+        # Handle file reading errors
         print(f"Warning: could not read '{LOG_FILE}' ({e}). Starting with an empty log.")
         return []
 
     return sessions
 
 
-# (b) Add a new session
 def add_session(sessions):
     """
     Prompt the user for subject, topic, date/day label and duration
@@ -126,7 +122,6 @@ def add_session(sessions):
 
 
 
-# (d) View all sessions
 def view_sessions(sessions):
     """Display every logged session in a neatly formatted table."""
     print("\n--- All Study Sessions ---")
@@ -145,7 +140,6 @@ def view_sessions(sessions):
         print(f"{s['subject']:<15}{s['topic']:<20}{s['date']:<15}{duration_str:<12}{session_type:<8}")
 
 
-# (e) Search sessions by subject
 def search_by_subject(sessions, subject):
     """
     Display all sessions recorded for a given subject (case-insensitive
@@ -177,7 +171,6 @@ def search_by_subject(sessions, subject):
 
 
 
-# (f) Study statistics
 def study_statistics(sessions):
     """
     Compute and display:
@@ -219,7 +212,7 @@ def study_statistics(sessions):
           f"on {longest['date']}.")
 
 
-# (a) Menu-driven interface
+# Menu-driven interface
 def display_menu():
     print("\n===== Smart Study Planner =====")
     print("1. Add a study session")
