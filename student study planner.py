@@ -1,7 +1,5 @@
 import os
 
-# Configuration
-
 LOG_FILE = "study_log.txt"
 # Delimiter used when loading sessions to or from the text file.
 DELIMITER = "|"
